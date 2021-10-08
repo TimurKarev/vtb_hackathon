@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vtb_hackathon/tim/pages/loading/loading_page.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -10,7 +11,12 @@ class LandingPage extends StatelessWidget {
         child: Column(
           children: [
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoadingPage()),
+                );
+              },
               child: Text("1"),
             ),
             ElevatedButton(
