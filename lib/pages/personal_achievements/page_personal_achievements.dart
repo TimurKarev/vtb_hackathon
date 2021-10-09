@@ -52,6 +52,9 @@ class PpersonalAachievementsState extends State<Personal_Achievements> {
               ),
               // SizedBox(height: otstup,),
 
+
+
+              //User profile
               Container(
                 margin: EdgeInsets.all(20),
                 // padding: EdgeInsets.all(30),
@@ -76,10 +79,10 @@ class PpersonalAachievementsState extends State<Personal_Achievements> {
                           height: 150,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(100),
-                              color: Colors.deepOrange),
+                              color: Colors.white),
                           child: FittedBox(
                             fit: BoxFit.fill,
-                            child: ClipOval(
+                            child: ClipOval(                             
                               child: Image.network(
                                   'https://avatars.mds.yandex.net/get-ott/374297/2a000001616b87458162c9216ccd5144e94d/678x380'),
                             ),
@@ -135,7 +138,7 @@ class PpersonalAachievementsState extends State<Personal_Achievements> {
                   boxShadow: [
                     // BoxShadow(color: Colors.grey, spreadRadius: 3),
                     BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
+                      color: Colors.white.withOpacity(0.5),
                       spreadRadius: 5,
                       blurRadius: 7,
                       offset: Offset(0, 3), // changes position of shadow
@@ -258,8 +261,11 @@ class PpersonalAachievementsState extends State<Personal_Achievements> {
                   height: 100,
                   child: FittedBox(
                       fit: BoxFit.fill,
-                      child: Image.network(
-                          'https://wf.cdn.gmru.net/wiki/images/a/a1/Challenge_badge_firstPlacePTBPyramid3.png')),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.only(bottomLeft:Radius.circular(100), topLeft: Radius.circular(100)),
+                        child: Image.network(
+                            'https://wf.cdn.gmru.net/wiki/images/a/a1/Challenge_badge_firstPlacePTBPyramid3.png'),
+                      )),
                   // decoration: BoxDecoration(
                   //   //TODO:
                   //   color: Colors.white,
