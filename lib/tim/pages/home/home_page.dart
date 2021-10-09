@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:vtb_hackathon/tim/pages/home/screens/story/story_screen.dart';
+import 'package:vtb_hackathon/tim/styles.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -10,17 +12,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
   static const List<Widget> _widgetOptions = <Widget>[
     StoryScreen(),
     Text(
       'Список доступных настолок',
-      style: optionStyle,
     ),
     Text(
       'Ссылки на продукты ВТБ',
-      style: optionStyle,
+      style: Styles.baseText,
     ),
   ];
 
@@ -29,8 +29,6 @@ class _HomePageState extends State<HomePage> {
     "Настолки",
     "Продукты",
   ];
-
-  static const _bottomIconColor = Colors.white;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -43,16 +41,16 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: Styles.backgroundColor,
+        foregroundColor: Styles.foregroundColor,
         title: Center(
-          child: Text(_appTitle[_selectedIndex]),
+          child: Text(_appTitle[_selectedIndex], style: Styles.appBarText),
         ),
         leading: IconButton(
           onPressed: () {},
           icon: const Icon(
-            Icons.account_balance,
-            color: Colors.lightBlue,
+            Icons.account_balance_outlined,
+            color: Styles.primaryDarkColor,
           ),
         ),
         actions: [
@@ -60,7 +58,7 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {},
             icon: const Icon(
               Icons.account_circle,
-              color: Colors.lightBlue,
+              color: Styles.primaryDarkColor,
             ),
           ),
         ],
@@ -88,8 +86,8 @@ class _HomePageState extends State<HomePage> {
         ],
         currentIndex: _selectedIndex,
         backgroundColor: Colors.black,
-        unselectedItemColor: _bottomIconColor,
-        selectedItemColor: Colors.lightBlue,
+        unselectedItemColor: Styles.backgroundColor,
+        selectedItemColor: Styles.primaryDarkColor,
         onTap: _onItemTapped,
       ),
     );

@@ -14,7 +14,9 @@ class LandingPage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const LoadingPage()),
+                  MaterialPageRoute(
+                    builder: (context) => const LoadingPage(),
+                  ),
                 );
               },
               child: Text("1"),
