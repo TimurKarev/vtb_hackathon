@@ -10,48 +10,6 @@ class LandingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const LoadingPage(),
-                  ),
-                );
-              },
-              child: Text("1"),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text("2"),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text("3"),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text("4"),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text("5"),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text("6"),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text("7"),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text("8"),
-            ),
-          ],
         child: Center(
           child: Column(
             children: [
