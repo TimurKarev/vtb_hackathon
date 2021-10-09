@@ -1,10 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
 // import 'package:vtb_hackathon/cubit_scoring/cubit_bloc.dart';
 import 'package:vtb_hackathon/pages/home/screens/story/bloc_pageview.dart';
 import 'package:vtb_hackathon/pages/styles.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vtb_hackathon/pages/story/story_cubit.dart';
+import 'package:vtb_hackathon/pages/story/story_page.dart';
+import 'package:vtb_hackathon/pages/styles.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 
 class StoryScreen extends StatefulWidget {
   const StoryScreen({Key? key}) : super(key: key);
@@ -17,6 +24,7 @@ class _StoryScreenState extends State<StoryScreen> {
   final PageController controller = PageController(initialPage: 0);
   int _selectedValue = 0;
   late PageViewCubit _bloc;
+
   @override
   void initState() {
     _bloc = PageViewCubit();
@@ -89,9 +97,7 @@ class _StoryScreenState extends State<StoryScreen> {
               //   _bloc.emit(EventJunior as PageViewState);
               // }else {
               //   _bloc.emit(EventPro as PageViewState);
-              // } 
-              
-              
+              // }
             });
           }),
       Container(
@@ -132,7 +138,53 @@ class _StoryScreenState extends State<StoryScreen> {
                   }
 
                   return Center(
-                    child: CupertinoActivityIndicator(),
+                    child: //CupertinoActivityIndicator(),
+                        Column(
+                      children: [
+                        TextButton(
+                          child: Text("Новичек 1"),
+                          onPressed: () {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) => BlocProvider(
+                                        create: (state) => StoryCubit("novice1"),
+                                        child: const StoryPage(),
+                                      )),
+                              (route) => false,
+                            );
+                          },
+                        ),
+                        TextButton(
+                          child: Text("Новичек "),
+                          onPressed: () {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) => BlocProvider(
+                                    create: (state) => StoryCubit("novice2"),
+                                    child: const StoryPage(),
+                                  )),
+                                  (route) => false,
+                            );
+                          },
+                        ),
+                        TextButton(
+                          child: Text("Продвинутый "),
+                          onPressed: () {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) => BlocProvider(
+                                    create: (state) => StoryCubit("advanced1"),
+                                    child: const StoryPage(),
+                                  )),
+                                  (route) => false,
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   );
                 })),
       )
@@ -205,50 +257,54 @@ class _StoryScreenState extends State<StoryScreen> {
           children: [
             Expanded(
                 child: Container(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-              "Title",
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
+              alignment: Alignment.topLeft,
+              child: Text(
+                "Title",
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
                     fontSize: 24,
                     color: Colors.black,
                     fontWeight: FontWeight.w400),
-            ),
-                )),
+              ),
+            )),
             Expanded(
                 child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-              "Content",
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
+              alignment: Alignment.topLeft,
+              child: Text(
+                "Content",
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
                     fontSize: 22,
                     color: Colors.black,
                     fontWeight: FontWeight.w400),
-            ),
-                )),
+              ),
+            )),
             Spacer(),
-            Align(              
+            Align(
               alignment: Alignment.bottomLeft,
               child: Padding(
                 padding: EdgeInsets.all(15),
-                child: Row(children: [
-                  Text(
-                  "XP",
-                  style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600),
-                ), 
-                SizedBox(width: 15,),
-                Text(
-                  "Title",
-                  style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w400),
-                )
-                ],),
+                child: Row(
+                  children: [
+                    Text(
+                      "XP",
+                      style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Text(
+                      "Title",
+                      style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w400),
+                    )
+                  ],
+                ),
               ),
             )
           ],

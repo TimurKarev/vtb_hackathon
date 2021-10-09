@@ -130,21 +130,21 @@ class ImageWidget extends StatelessWidget {
                   style: Styles.textButtonText,
                 ),
                 onPressed: () {
-                  // Navigator.pushAndRemoveUntil(
-                  //   context,
-                  //   MaterialPageRoute<void>(
-                  //       builder: (BuildContext context) => const HomePage()),
-                  //   (route) => false,
-                  // );
                   Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => BlocProvider(
-                              create: (state) => StoryCubit("onboarding"),
-                              child: const StoryPage(),
-                            )),
+                    MaterialPageRoute<void>(
+                        builder: (BuildContext context) => const HomePage()),
                     (route) => false,
                   );
+                  // Navigator.pushAndRemoveUntil(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //       builder: (BuildContext context) => BlocProvider(
+                  //             create: (state) => StoryCubit("onboarding"),
+                  //             child: const StoryPage(),
+                  //           )),
+                  //   (route) => false,
+                  // );
                 },
               ),
             ),
