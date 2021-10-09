@@ -9,42 +9,63 @@ class StartPage extends StatefulWidget {
 }
 
 class _StartPageState extends State<StartPage> {
-  int stageStory = 1;
+  int stageStory = 0;
+  int stageStoryScript1 = 0;
+  int stageStoryScript2 = 0;
+
+  List<String> baseScript = [
+    "Вы идете в магазин за покупками и неожиданно встречаетесь со старой подругой...",
+    "Подруга: О, привет, давно не виделись! Как дела, как жизнь? У меня вот...",
+    "И наша подруга все продолжала и продолжала...",
+    "Подруга: Кстати, помнишь как мы обсуждали, что хотим отложить денег себе на старость. Ну и как, у тебя получается?",
+  ];
+
+  List<String> script1 = [
+    "Подруга: Если честно, у меня тоже самое. Ну, ладно, приятно было с тобой поболтать, надеюсь еще увидимся!",
+    "Вы прощаетесь с подругой и идете в магазин...",
+    "В магазине вы видете новые крутые наушеники с 3D звуком и шумоподавлением, только сейчас всего за половину вашей зарплаты! Акция ограничена!",
+    "Но вы УМЕЕТЕ ОТКЛАДЫВАТЬ и решаете не покупать их.",
+  ];
+
+  List<String> script2 = [
+    "Подруга: О, это хорошо, а вот у меня каждый раз после зарплаты деньги куда-то исчезают. Ладно тогда, приятно было поболтать, надеюсь еще увидимся!",
+    "Вы прощаетесь с подругой и идете в магазин...",
+    "В магазине вы видете новые крутые наушеники с 3D звуком и шумоподавлением, только сейчас всего за половину вашей зарплаты! Акция ограничена!",
+    "Вы решаете купить их. Но так как вы НЕ ОТКЛАДЫВАЛИ, у вас в кошельке не оказалось достаточно денег на них.",
+  ];
+
+  Widget buildBlackScreen() {
+    return Container(
+      color: Colors.black,
+      child: Center(
+        child: GestureDetector(
+          onTap: () {
+            setState(() {
+              stageStory++;
+            });
+            print(stageStory);
+          },
+          child: Text(
+            baseScript[stageStory],
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFFD8E6FC)),
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: onBuildScreen(stageStory),
+      body: stageStory == 2 ? buildBlackScreen() : onBuildScreen(),
     );
   }
 
-  Widget onBuildScreen(int stage) {
-    if (stage == 3) {
-      return Column(
-        children: [
-          Expanded(
-            child: Container(
-              color: Colors.black,
-              child: Center(
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      stageStory++;
-                    });
-                    print(stageStory);
-                  },
-                  child: const Text(
-                    "И наша подруга все продолжала и продолжала...",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFFD8E6FC)),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      );
-    }
+  Widget onBuildScreen() {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -72,7 +93,10 @@ class _StartPageState extends State<StartPage> {
                     children: const [
                       Icon(Icons.monetization_on_outlined, color: Color(0xFF3A83F1)),
                       SizedBox(width: 4),
-                      Text("87 руб.", style: TextStyle(color: Color(0xFF3A83F1))),
+                      Text(
+                        "87 руб.",
+                        style: TextStyle(color: Color(0xFF3A83F1)),
+                      ),
                     ],
                   ),
                 ),
@@ -89,7 +113,7 @@ class _StartPageState extends State<StartPage> {
                       icon: Icons.restart_alt_outlined,
                       func: () {
                         setState(() {
-                          stageStory = 1;
+                          stageStory = 0;
                         });
                         print(stageStory);
                       },
@@ -103,7 +127,7 @@ class _StartPageState extends State<StartPage> {
           GestureDetector(
             onTap: () {
               setState(() {
-                stageStory++;
+                if (stageStory != 5) stageStory++;
               });
               print(stageStory);
             },
@@ -112,8 +136,8 @@ class _StartPageState extends State<StartPage> {
               decoration: const BoxDecoration(
                 color: Color.fromARGB(221, 255, 255, 255),
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(16),
-                    topRight: Radius.circular(16)
+                  topLeft: Radius.circular(16),
+                  topRight: Radius.circular(16),
                 ),
                 boxShadow: [
                   BoxShadow(
@@ -130,21 +154,21 @@ class _StartPageState extends State<StartPage> {
                     child: Column(
                       children: [
                         Text(
-                          onStoryBuild(stageStory),
+                          baseScript[stageStory],
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color(0xFF2F3441),
                           ),
                         ),
                         const SizedBox(height: 8),
-                        onBuildStoryButtons(stage),
+                        onBuildStoryButtons(stageStory),
                       ],
                     ),
                   ),
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -165,7 +189,7 @@ class _StartPageState extends State<StartPage> {
   }
 
   Widget onBuildStoryButtons(int stage) {
-    if (stage == 5) {
+    if (stage == 3) {
       return Column(
         children: [
           onBuildItemButton(6, "Да... Пока никак особо, живу от зарплаты до зарплаты..."),
@@ -184,7 +208,8 @@ class _StartPageState extends State<StartPage> {
         });
       },
       style: ButtonStyle(
-        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
+        shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
         backgroundColor: MaterialStateProperty.all(const Color(0xFF3A83F1)),
       ),
       child: Container(
@@ -233,13 +258,15 @@ class _StartPageState extends State<StartPage> {
     String storyContent = "";
     switch (stage) {
       case 16:
-        storyContent = "Подруга: Если честно, у меня тоже самое. Ну, ладно, приятно было с тобой поболтать, надеюсь еще увидимся!";
+        storyContent =
+            "Подруга: Если честно, у меня тоже самое. Ну, ладно, приятно было с тобой поболтать, надеюсь еще увидимся!";
         break;
       case 17:
         storyContent = "Вы прощаетесь с подругой и идете в магазин...";
         break;
       case 18:
-        storyContent = "В магазине вы видете новые крутые наушеники с 3D звуком и шумоподавлением, только сейчас всего за половину вашей зарплаты! Акция ограничена!";
+        storyContent =
+            "В магазине вы видете новые крутые наушеники с 3D звуком и шумоподавлением, только сейчас всего за половину вашей зарплаты! Акция ограничена!";
         break;
       case 19:
         storyContent = "Но вы УМЕЕТЕ ОТКЛАДЫВАТЬ и решаете не покупать их.";
@@ -252,16 +279,19 @@ class _StartPageState extends State<StartPage> {
     String storyContent = "";
     switch (stage) {
       case 26:
-        storyContent = "Подруга: О, это хорошо, а вот у меня каждый раз после зарплаты деньги куда-то исчезают. Ладно тогда, приятно было поболтать, надеюсь еще увидимся!";
+        storyContent =
+            "Подруга: О, это хорошо, а вот у меня каждый раз после зарплаты деньги куда-то исчезают. Ладно тогда, приятно было поболтать, надеюсь еще увидимся!";
         break;
       case 27:
         storyContent = "Вы прощаетесь с подругой и идете в магазин...";
         break;
       case 28:
-        storyContent = "В магазине вы видете новые крутые наушеники с 3D звуком и шумоподавлением, только сейчас всего за половину вашей зарплаты! Акция ограничена!";
+        storyContent =
+            "В магазине вы видете новые крутые наушеники с 3D звуком и шумоподавлением, только сейчас всего за половину вашей зарплаты! Акция ограничена!";
         break;
       case 29:
-        storyContent = "Вы решаете купить их. Но так как вы НЕ ОТКЛАДЫВАЛИ, у вас в кошельке не оказалось достаточно денег на них.";
+        storyContent =
+            "Вы решаете купить их. Но так как вы НЕ ОТКЛАДЫВАЛИ, у вас в кошельке не оказалось достаточно денег на них.";
         break;
     }
     return storyContent;
