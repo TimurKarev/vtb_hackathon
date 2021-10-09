@@ -44,7 +44,7 @@ class _StartPageState extends State<StartPage> {
         child: GestureDetector(
           onTap: () {
             setState(() {
-              if (stageBaseStory < 3) stageBaseStory++;
+              if (stageBaseStory < baseScript.length - 1) stageBaseStory++;
             });
             print("base: $stageBaseStory");
           },
@@ -70,7 +70,7 @@ class _StartPageState extends State<StartPage> {
           content: script1,
           func: () {
             setState(() {
-              if (stageStoryScript1 < 3) stageStoryScript1++;
+              if (stageStoryScript1 < script1.length - 1) stageStoryScript1++;
             });
             print("SCRIPT 1: $stageStoryScript1");
           },
@@ -84,7 +84,7 @@ class _StartPageState extends State<StartPage> {
           content: script2,
           func: () {
             setState(() {
-              if (stageStoryScript2 < 3) stageStoryScript2++;
+              if (stageStoryScript2 < script2.length - 1) stageStoryScript2++;
             });
             print("SCRIPT 2: $stageStoryScript2");
           },
@@ -98,7 +98,7 @@ class _StartPageState extends State<StartPage> {
       body: onBuildScreen(
               func: () {
                 setState(() {
-                  if (stageBaseStory < 3) stageBaseStory++;
+                  if (stageBaseStory < baseScript.length - 1) stageBaseStory++;
                 });
                 print("BASE: $stageBaseStory");
               },
