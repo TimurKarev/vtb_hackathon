@@ -17,7 +17,7 @@ class LoadingPage extends ConsumerWidget {
     } else if (viewModel.loadState == LoadingStateEnum.multiTime) {
       return const HomePage();
     } else {
-      return const OnBoardingPage();
+      return const HomePage();
     }
   }
 }

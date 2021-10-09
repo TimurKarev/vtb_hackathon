@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "115632784927",
+    "project_id": "vtbhakathon",
+    "storage_bucket": "vtbhakathon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:115632784927:android:50a24e98bef2c1894cf72a",
+        "android_client_info": {
+          "package_name": "com.example.vtb_hackathon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "115632784927-4b7thu2tvle6281r04moemp0kj1lc6o4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMVGUmeXUq8Fls949-nkPPogRU3Ee-x8g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "115632784927-4b7thu2tvle6281r04moemp0kj1lc6o4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
