@@ -8,6 +8,28 @@ abstract class Styles {
   fontWeight: FontWeight.w400,
   );
 
+  static const TextStyle onBoardingHeaderText = TextStyle(
+    fontSize: 30,
+    fontStyle: FontStyle.normal,
+    fontWeight: FontWeight.w600,
+    color: Colors.white,
+  );
+
+  static const TextStyle onBoardingText = TextStyle(
+    fontSize: 18,
+    fontStyle: FontStyle.normal,
+    fontWeight: FontWeight.w400,
+    color: Colors.white,
+  );
+
+  static const TextStyle textButtonText = TextStyle(
+    fontSize: 18,
+    fontStyle: FontStyle.normal,
+    fontWeight: FontWeight.w600,
+    color: primaryColor,
+  );
+
+
   static const TextStyle baseText = TextStyle(
     fontSize: 16,
     fontStyle: FontStyle.normal,

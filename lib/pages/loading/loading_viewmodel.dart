@@ -19,7 +19,6 @@ class LoadingViewModel extends ChangeNotifier {
     LoadingViewModel() {
         load();
     }
-
     Future<void> load() async {
         await Future.delayed(const Duration(seconds: 2));
         SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -38,5 +37,4 @@ class LoadingViewModel extends ChangeNotifier {
         }
         notifyListeners();
     }
-
 }
