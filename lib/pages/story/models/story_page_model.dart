@@ -2,14 +2,13 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:vtb_hackathon/pages/loading/loading_cubit.dart';
 import 'package:vtb_hackathon/pages/story/models/option_model.dart';
 
 class StoryPageModel {
   DocumentReference<Map<String, dynamic>>? ref;
   String text;
   List<OptionModel>? options;
-  String? pageType;
+  String? type;
   String? speakerName;
   String image;
 
@@ -17,7 +16,7 @@ class StoryPageModel {
     required this.ref,
     required this.text,
     this.options,
-    this.pageType,
+    this.type,
     this.speakerName,
     required this.image,
   });
@@ -31,9 +30,11 @@ class StoryPageModel {
     return StoryPageModel(
       ref: ref,
       text: map['text'],
-      options: List<OptionModel>.from(
-          map['options']?.map((x) => OptionModel.fromMap(x))),
-      pageType: map['pageType'],
+      options: map['options'] == null
+          ? null
+          : List<OptionModel>.from(
+              map['options']!.map((x) => OptionModel.fromMap(x))),
+      type: map['type'],
       speakerName: map['speakerName'],
       image: map['image'],
     );

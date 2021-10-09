@@ -20,4 +20,26 @@ class StoryCubit extends Cubit<StoryPageModel> {
 
     emit(page);
   }
+
+  loadNext() async {
+    StoryPageModel next = await state.ref!
+        .collection('pages')
+        .doc('next')
+        .get()
+        .then(
+            (value) => StoryPageModel.fromMap(value.data()!, value.reference));
+
+    emit(next);
+  }
+
+  loadNamed(String name) async {
+    StoryPageModel next = await state.ref!
+        .collection('pages')
+        .doc(name)
+        .get()
+        .then(
+            (value) => StoryPageModel.fromMap(value.data()!, value.reference));
+
+    emit(next);
+  }
 }
