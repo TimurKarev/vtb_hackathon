@@ -52,6 +52,7 @@ dev_dependencies:
   flutter_bloc: ^7.3.0
   flutter_riverpod: ^0.14.0+3
   auto_size_text: ^3.0.0-nullsafety.0
+  introduction_screen: ^2.1.0
 
   firebase_core: ^1.7.0
   cloud_firestore: ^2.5.3
@@ -71,6 +72,9 @@ flutter:
   assets:
     - assets/svg/VTB_Logo_2018.svg
     - assets/svg/loading.svg
+    - assets/png/on_boarding_1.png
+    - assets/png/on_boarding_2.png
+    - assets/png/on_boarding_3.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

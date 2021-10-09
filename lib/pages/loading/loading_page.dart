@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vtb_hackathon/pages/8/start_page.dart';
 import 'package:vtb_hackathon/pages/home/home_page.dart';
 import 'package:vtb_hackathon/pages/loading/loading_viewmodel.dart';
 import 'package:vtb_hackathon/pages/loading/on_boarding_page.dart';
@@ -18,16 +17,10 @@ class LoadingPage extends ConsumerWidget {
     if (viewModel.loadState == LoadingStateEnum.loading) {
       return SvgPicture.asset('assets/svg/loading.svg');
     } else if (viewModel.loadState == LoadingStateEnum.multiTime) {
-      // return const HomePage();
-      return BlocProvider(
-        create: (state) => StoryCubit("onboarding"),
-        child: const StoryPage(),
-      );
+
+      return const OnBoardingPage();
     } else {
-      return BlocProvider(
-        create: (state) => StoryCubit("onboarding"),
-        child: const StoryPage(),
-      );
+      return const OnBoardingPage();
     }
   }
 }
