@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:vtb_hackathon/pages/home/home_page.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({Key? key}) : super(key: key);
@@ -71,6 +72,13 @@ class _StartPageState extends State<StartPage> {
           func: () {
             setState(() {
               if (stageStoryScript1 < script1.length - 1) stageStoryScript1++;
+              else {
+                print("Time to exit");
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomePage()),
+                        (Route<dynamic> route) => false);
+              }
             });
             print("SCRIPT 1: $stageStoryScript1");
           },
@@ -85,6 +93,13 @@ class _StartPageState extends State<StartPage> {
           func: () {
             setState(() {
               if (stageStoryScript2 < script2.length - 1) stageStoryScript2++;
+              else {
+                print("Time to exit");
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomePage()),
+                        (Route<dynamic> route) => false);
+              }
             });
             print("SCRIPT 2: $stageStoryScript2");
           },
