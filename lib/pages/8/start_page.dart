@@ -14,15 +14,7 @@ class _StartPageState extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GestureDetector(
-        onTap: () {
-          setState(() {
-            stageStory++;
-          });
-          print(stageStory);
-        },
-        child: onBuildScreen(stageStory),
-      ),
+      body: onBuildScreen(stageStory),
     );
   }
 
@@ -33,11 +25,19 @@ class _StartPageState extends State<StartPage> {
           Expanded(
             child: Container(
               color: Colors.black,
-              child: const Center(
-                child: Text(
-                  "И наша подруга все продолжала и продолжала...",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFFD8E6FC)),
+              child: Center(
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      stageStory++;
+                    });
+                    print(stageStory);
+                  },
+                  child: const Text(
+                    "И наша подруга все продолжала и продолжала...",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFFD8E6FC)),
+                  ),
                 ),
               ),
             ),
@@ -62,8 +62,7 @@ class _StartPageState extends State<StartPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                   margin: const EdgeInsets.symmetric(horizontal: 8),
                   decoration: BoxDecoration(
                     color: const Color.fromARGB(221, 255, 255, 255),
@@ -79,22 +78,21 @@ class _StartPageState extends State<StartPage> {
                 ),
                 Row(
                   children: [
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(221, 255, 255, 255),
-                        borderRadius: BorderRadius.circular(32),
-                      ),
-                      child: const Icon(Icons.info_outline, color: Color(0xFF3A83F1)),
+                    onBuildButtons(
+                      icon: Icons.info_outline,
+                      func: () {
+                        print(stageStory);
+                      },
                     ),
                     const SizedBox(width: 8),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(221, 255, 255, 255),
-                        borderRadius: BorderRadius.circular(32),
-                      ),
-                      child: const Icon(Icons.restart_alt_outlined, color: Color(0xFF3A83F1)),
+                    onBuildButtons(
+                      icon: Icons.restart_alt_outlined,
+                      func: () {
+                        setState(() {
+                          stageStory = 1;
+                        });
+                        print(stageStory);
+                      },
                     ),
                     const SizedBox(width: 8),
                   ],
@@ -102,39 +100,49 @@ class _StartPageState extends State<StartPage> {
               ],
             ),
           ),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: const BoxDecoration(
-              color: Color.fromARGB(221, 255, 255, 255),
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(16), topRight: Radius.circular(16)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 4.0,
-                  spreadRadius: 4.0,
-                  offset: Offset(0.0, 0.0),
-                )
-              ],
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      Text(
-                        onStoryBuild(stageStory),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF2F3441),
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      onBuildButtons(stage),
-                    ],
-                  ),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                stageStory++;
+              });
+              print(stageStory);
+            },
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(221, 255, 255, 255),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16)
                 ),
-              ],
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 4.0,
+                    spreadRadius: 4.0,
+                    offset: Offset(0.0, 0.0),
+                  )
+                ],
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Text(
+                          onStoryBuild(stageStory),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF2F3441),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        onBuildStoryButtons(stage),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           )
         ],
@@ -142,7 +150,21 @@ class _StartPageState extends State<StartPage> {
     );
   }
 
-  Widget onBuildButtons(int stage) {
+  Widget onBuildButtons({required IconData icon, required VoidCallback func}) {
+    return GestureDetector(
+      onTap: func,
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(221, 255, 255, 255),
+          borderRadius: BorderRadius.circular(32),
+        ),
+        child: Icon(icon, color: const Color(0xFF3A83F1)),
+      ),
+    );
+  }
+
+  Widget onBuildStoryButtons(int stage) {
     if (stage == 5) {
       return Column(
         children: [
@@ -162,9 +184,13 @@ class _StartPageState extends State<StartPage> {
         });
       },
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Colors.amber[400]),
+        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
+        backgroundColor: MaterialStateProperty.all(const Color(0xFF3A83F1)),
       ),
-      child: Text(text),
+      child: Container(
+        margin: const EdgeInsets.all(4),
+        child: Text(text),
+      ),
     );
   }
 
@@ -207,8 +233,7 @@ class _StartPageState extends State<StartPage> {
     String storyContent = "";
     switch (stage) {
       case 16:
-        storyContent =
-            "Подруга: Если честно, у меня тоже самое. Ну, ладно, приятно было с тобой поболтать, надеюсь еще увидимся!";
+        storyContent = "Подруга: Если честно, у меня тоже самое. Ну, ладно, приятно было с тобой поболтать, надеюсь еще увидимся!";
         break;
       case 17:
         storyContent = "Вы прощаетесь с подругой и идете в магазин...";
