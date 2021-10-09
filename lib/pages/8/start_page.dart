@@ -44,9 +44,9 @@ class _StartPageState extends State<StartPage> {
         child: GestureDetector(
           onTap: () {
             setState(() {
-              stageBaseStory++;
+              if (stageBaseStory < 3) stageBaseStory++;
             });
-            print(stageBaseStory);
+            print("base: $stageBaseStory");
           },
           child: Text(
             baseScript[stageBaseStory],
@@ -65,22 +65,53 @@ class _StartPageState extends State<StartPage> {
   Widget build(BuildContext context) {
     if (isStartFirstWay) {
       return Scaffold(
-        body: onBuildScreen(dialogType: stageStoryScript1, content: script1),
+        body: onBuildScreen(
+          num: stageStoryScript1,
+          content: script1,
+          func: () {
+            setState(() {
+              if (stageStoryScript1 < 3) stageStoryScript1++;
+            });
+            print("SCRIPT 1: $stageStoryScript1");
+          },
+        ),
       );
     }
     if (isStartSecondWay) {
       return Scaffold(
-        body: onBuildScreen(dialogType: stageStoryScript2, content: script2),
+        body: onBuildScreen(
+          num: stageStoryScript2,
+          content: script2,
+          func: () {
+            setState(() {
+              if (stageStoryScript2 < 3) stageStoryScript2++;
+            });
+            print("SCRIPT 2: $stageStoryScript2");
+          },
+        ),
       );
     }
+
+    if (stageBaseStory == 2) return Scaffold(body: buildBlackScreen());
+
     return Scaffold(
-      body: stageBaseStory == 2 ? buildBlackScreen() : onBuildScreen(dialogType: stageBaseStory, content: baseScript),
+      body: onBuildScreen(
+              func: () {
+                setState(() {
+                  if (stageBaseStory < 3) stageBaseStory++;
+                });
+                print("BASE: $stageBaseStory");
+              },
+              num: stageBaseStory,
+              content: baseScript,
+            ),
     );
   }
 
-  Widget onBuildScreen({required int dialogType, required List<String> content}) {
-    int count = 0;
-    count = dialogType;
+  Widget onBuildScreen(
+      {required VoidCallback func,
+      required int num,
+      required List<String> content}) {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -92,14 +123,9 @@ class _StartPageState extends State<StartPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          topLayer(count),
+          topLayer(),
           GestureDetector(
-            onTap: () {
-              setState(() {
-                count++;
-              });
-              print(count);
-            },
+            onTap: func,
             child: Container(
               padding: const EdgeInsets.all(16),
               decoration: const BoxDecoration(
@@ -123,14 +149,14 @@ class _StartPageState extends State<StartPage> {
                     child: Column(
                       children: [
                         Text(
-                          content[count],
+                          content[num],
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color(0xFF2F3441),
                           ),
                         ),
                         const SizedBox(height: 8),
-                       if (stageBaseStory == 3) onBuildStoryButtons(),
+                        if (stageBaseStory == 3) onBuildStoryButtons(),
                       ],
                     ),
                   ),
@@ -143,7 +169,7 @@ class _StartPageState extends State<StartPage> {
     );
   }
 
-  Widget topLayer(int dialogType) {
+  Widget topLayer() {
     return Container(
       margin: const EdgeInsets.only(top: 48),
       child: Row(
@@ -172,7 +198,7 @@ class _StartPageState extends State<StartPage> {
               onBuildButtons(
                 icon: Icons.info_outline,
                 func: () {
-                  print(dialogType);
+                  // print(dialogType);
                 },
               ),
               const SizedBox(width: 8),
@@ -180,9 +206,12 @@ class _StartPageState extends State<StartPage> {
                 icon: Icons.restart_alt_outlined,
                 func: () {
                   setState(() {
-                    dialogType = 0;
+                    stageBaseStory = 0;
+                    stageStoryScript1 = 0;
+                    stageStoryScript2 = 0;
+                    isStartFirstWay = false;
+                    isStartSecondWay = false;
                   });
-                  print(dialogType);
                 },
               ),
               const SizedBox(width: 8),
@@ -211,29 +240,35 @@ class _StartPageState extends State<StartPage> {
     return Column(
       children: [
         onBuildItemButton(
-          text: "Да... Пока никак особо, живу от зарплаты до зарплаты...",
-          flag: isStartFirstWay,
-          stage: stageStoryScript1
-        ),
+            text: "Да... Пока никак особо, живу от зарплаты до зарплаты...",
+            flag: () {
+              setState(() {
+                isStartFirstWay = !isStartFirstWay;
+                stageBaseStory = 0;
+              });
+            },
+            stage: stageStoryScript1),
         onBuildItemButton(
-          text: "Ты знаешь, а все идет довольно неплохо, даже откладывать получается",
-          flag: isStartSecondWay,
-          stage: stageStoryScript2
-        ),
+            text:
+                "Ты знаешь, а все идет довольно неплохо, даже откладывать получается.",
+            flag: () {
+              setState(() {
+                isStartSecondWay = !isStartSecondWay;
+                stageBaseStory = 0;
+              });
+            },
+            stage: stageStoryScript2),
       ],
     );
   }
 
-  Widget onBuildItemButton({required int stage, required bool flag, required String text}) {
+  Widget onBuildItemButton(
+      {required int stage, required VoidCallback flag, required String text}) {
     return ElevatedButton(
-      onPressed: () {
-        setState(() {
-          stageBaseStory = stage;
-          flag = !flag;
-        });
-      },
+      onPressed: flag,
       style: ButtonStyle(
-        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
+        shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
         backgroundColor: MaterialStateProperty.all(const Color(0xFF3A83F1)),
       ),
       child: Container(
