@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:vtb_hackathon/pages/8/start_page.dart';
-import 'package:vtb_hackathon/pages/landing_page.dart';
 import 'package:vtb_hackathon/pages/loading/loading_page.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
