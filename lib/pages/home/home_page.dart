@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import 'package:vtb_hackathon/tim/pages/home/screens/story/story_screen.dart';
-import 'package:vtb_hackathon/tim/styles.dart';
+import 'package:vtb_hackathon/pages/home/screens/story/story_screen.dart';
+import 'package:vtb_hackathon/pages/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePage extends StatefulWidget {

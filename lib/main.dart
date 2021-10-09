@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:vtb_hackathon/pages/8/start_page.dart';
 import 'package:vtb_hackathon/pages/landing_page.dart';
+import 'package:vtb_hackathon/pages/loading/loading_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const LandingPage(),
+      home: const LoadingPage(),
     );
   }
 }
