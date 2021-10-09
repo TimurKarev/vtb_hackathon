@@ -9,9 +9,12 @@ class StartPage extends StatefulWidget {
 }
 
 class _StartPageState extends State<StartPage> {
-  int stageStory = 0;
+  int stageBaseStory = 0;
   int stageStoryScript1 = 0;
   int stageStoryScript2 = 0;
+
+  bool isStartFirstWay = false;
+  bool isStartSecondWay = false;
 
   List<String> baseScript = [
     "Вы идете в магазин за покупками и неожиданно встречаетесь со старой подругой...",
@@ -41,12 +44,12 @@ class _StartPageState extends State<StartPage> {
         child: GestureDetector(
           onTap: () {
             setState(() {
-              stageStory++;
+              stageBaseStory++;
             });
-            print(stageStory);
+            print(stageBaseStory);
           },
           child: Text(
-            baseScript[stageStory],
+            baseScript[stageBaseStory],
             textAlign: TextAlign.center,
             style: const TextStyle(
                 fontSize: 18,
@@ -60,12 +63,24 @@ class _StartPageState extends State<StartPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (isStartFirstWay) {
+      return Scaffold(
+        body: onBuildScreen(dialogType: stageStoryScript1, content: script1),
+      );
+    }
+    if (isStartSecondWay) {
+      return Scaffold(
+        body: onBuildScreen(dialogType: stageStoryScript2, content: script2),
+      );
+    }
     return Scaffold(
-      body: stageStory == 2 ? buildBlackScreen() : onBuildScreen(),
+      body: stageBaseStory == 2 ? buildBlackScreen() : onBuildScreen(dialogType: stageBaseStory, content: baseScript),
     );
   }
 
-  Widget onBuildScreen() {
+  Widget onBuildScreen({required int dialogType, required List<String> content}) {
+    int count = 0;
+    count = dialogType;
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -77,59 +92,13 @@ class _StartPageState extends State<StartPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            margin: const EdgeInsets.only(top: 48),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(221, 255, 255, 255),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Row(
-                    children: const [
-                      Icon(Icons.monetization_on_outlined, color: Color(0xFF3A83F1)),
-                      SizedBox(width: 4),
-                      Text(
-                        "87 руб.",
-                        style: TextStyle(color: Color(0xFF3A83F1)),
-                      ),
-                    ],
-                  ),
-                ),
-                Row(
-                  children: [
-                    onBuildButtons(
-                      icon: Icons.info_outline,
-                      func: () {
-                        print(stageStory);
-                      },
-                    ),
-                    const SizedBox(width: 8),
-                    onBuildButtons(
-                      icon: Icons.restart_alt_outlined,
-                      func: () {
-                        setState(() {
-                          stageStory = 0;
-                        });
-                        print(stageStory);
-                      },
-                    ),
-                    const SizedBox(width: 8),
-                  ],
-                ),
-              ],
-            ),
-          ),
+          topLayer(count),
           GestureDetector(
             onTap: () {
               setState(() {
-                if (stageStory != 5) stageStory++;
+                count++;
               });
-              print(stageStory);
+              print(count);
             },
             child: Container(
               padding: const EdgeInsets.all(16),
@@ -154,20 +123,70 @@ class _StartPageState extends State<StartPage> {
                     child: Column(
                       children: [
                         Text(
-                          baseScript[stageStory],
+                          content[count],
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color(0xFF2F3441),
                           ),
                         ),
                         const SizedBox(height: 8),
-                        onBuildStoryButtons(stageStory),
+                       if (stageBaseStory == 3) onBuildStoryButtons(),
                       ],
                     ),
                   ),
                 ],
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget topLayer(int dialogType) {
+    return Container(
+      margin: const EdgeInsets.only(top: 48),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            margin: const EdgeInsets.symmetric(horizontal: 8),
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(221, 255, 255, 255),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Row(
+              children: const [
+                Icon(Icons.monetization_on_outlined, color: Color(0xFF3A83F1)),
+                SizedBox(width: 4),
+                Text(
+                  "87 руб.",
+                  style: TextStyle(color: Color(0xFF3A83F1)),
+                ),
+              ],
+            ),
+          ),
+          Row(
+            children: [
+              onBuildButtons(
+                icon: Icons.info_outline,
+                func: () {
+                  print(dialogType);
+                },
+              ),
+              const SizedBox(width: 8),
+              onBuildButtons(
+                icon: Icons.restart_alt_outlined,
+                func: () {
+                  setState(() {
+                    dialogType = 0;
+                  });
+                  print(dialogType);
+                },
+              ),
+              const SizedBox(width: 8),
+            ],
           ),
         ],
       ),
@@ -188,28 +207,33 @@ class _StartPageState extends State<StartPage> {
     );
   }
 
-  Widget onBuildStoryButtons(int stage) {
-    if (stage == 3) {
-      return Column(
-        children: [
-          onBuildItemButton(6, "Да... Пока никак особо, живу от зарплаты до зарплаты..."),
-          onBuildItemButton(7, "Ты знаешь, а все идет довольно неплохо, даже откладывать получается"),
-        ],
-      );
-    }
-    return Container();
+  Widget onBuildStoryButtons() {
+    return Column(
+      children: [
+        onBuildItemButton(
+          text: "Да... Пока никак особо, живу от зарплаты до зарплаты...",
+          flag: isStartFirstWay,
+          stage: stageStoryScript1
+        ),
+        onBuildItemButton(
+          text: "Ты знаешь, а все идет довольно неплохо, даже откладывать получается",
+          flag: isStartSecondWay,
+          stage: stageStoryScript2
+        ),
+      ],
+    );
   }
 
-  Widget onBuildItemButton(int stage, String text) {
+  Widget onBuildItemButton({required int stage, required bool flag, required String text}) {
     return ElevatedButton(
       onPressed: () {
         setState(() {
-          stageStory = stage;
+          stageBaseStory = stage;
+          flag = !flag;
         });
       },
       style: ButtonStyle(
-        shape: MaterialStateProperty.all(
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
+        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
         backgroundColor: MaterialStateProperty.all(const Color(0xFF3A83F1)),
       ),
       child: Container(
@@ -217,83 +241,5 @@ class _StartPageState extends State<StartPage> {
         child: Text(text),
       ),
     );
-  }
-
-  String onStoryBuild(int stage) {
-    if (stage == 6) {
-      setState(() {
-        stageStory + 20;
-      });
-      return onStoryGoingOn1(stageStory);
-    }
-    if (stage == 7) {
-      setState(() {
-        stageStory + 20;
-      });
-      return onStoryGoingOn2(stageStory);
-    }
-    return onStoryGoingOn(stage);
-  }
-
-  String onStoryGoingOn(int stage) {
-    String storyContent = "";
-    switch (stage) {
-      case 1:
-        storyContent =
-            "Вы идете в магазин за покупками и неожиданно встречаетесь со старой подругой...";
-        break;
-      case 2:
-        storyContent =
-            "Подруга: О, привет, давно не виделись! Как дела, как жизнь? У меня вот...";
-        break;
-      case 4:
-        storyContent =
-            "Подруга: Кстати, помнишь как мы обсуждали, что хотим отложить денег себе на старость. Ну и как, у тебя получается?";
-        break;
-    }
-    return storyContent;
-  }
-
-  String onStoryGoingOn1(int stage) {
-    String storyContent = "";
-    switch (stage) {
-      case 16:
-        storyContent =
-            "Подруга: Если честно, у меня тоже самое. Ну, ладно, приятно было с тобой поболтать, надеюсь еще увидимся!";
-        break;
-      case 17:
-        storyContent = "Вы прощаетесь с подругой и идете в магазин...";
-        break;
-      case 18:
-        storyContent =
-            "В магазине вы видете новые крутые наушеники с 3D звуком и шумоподавлением, только сейчас всего за половину вашей зарплаты! Акция ограничена!";
-        break;
-      case 19:
-        storyContent = "Но вы УМЕЕТЕ ОТКЛАДЫВАТЬ и решаете не покупать их.";
-        break;
-    }
-    return storyContent;
-  }
-
-  String onStoryGoingOn2(int stage) {
-    String storyContent = "";
-    switch (stage) {
-      case 26:
-        storyContent =
-            "Подруга: О, это хорошо, а вот у меня каждый раз после зарплаты деньги куда-то исчезают. Ладно тогда, приятно было поболтать, надеюсь еще увидимся!";
-        break;
-      case 27:
-        storyContent = "Вы прощаетесь с подругой и идете в магазин...";
-        break;
-      case 28:
-        storyContent =
-            "В магазине вы видете новые крутые наушеники с 3D звуком и шумоподавлением, только сейчас всего за половину вашей зарплаты! Акция ограничена!";
-        break;
-      case 29:
-        storyContent =
-            "Вы решаете купить их. Но так как вы НЕ ОТКЛАДЫВАЛИ, у вас в кошельке не оказалось достаточно денег на них.";
-        break;
-    }
-    return storyContent;
   }
 }
