@@ -20,13 +20,13 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   static const List<String> _header = [
     "Ваш финансовый помощник",
     "Небольшие сюжеты",
-    "Готовы начать? :) Тогда нажмите на кнопку ниже",
+    "Готовы начать? :)",
   ];
 
   static const List<String> _text = [
     "Мы расскажем вам о преемуществах инвестирования в краткой и лаконичной форме",
     "Вам будут предложены несколько бытовых историй, повествующих о том почему важно инвестировать и правильно пользоваться своими средствами",
-    "",
+    "Тогда нажмите на кнопку ниже.",
   ];
 
   @override
@@ -105,48 +105,43 @@ class ImageWidget extends StatelessWidget {
           alignment: Alignment.center,
         ),
         Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(30.0, 70.0, 80.0, 20.0),
-              child: Text(
-                header,
-                style: Styles.onBoardingHeaderText,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(33.0, 0.0, 40.0, 20.0),
-              child: Text(
-                text,
-                style: Styles.onBoardingText,
-              ),
-            ),
-            const SizedBox(
-              height: 355.0,
-            ),
-            SizedBox(
-              child: TextButton(
-                child: Text(
-                  buttonText,
-                  style: Styles.textButtonText,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(30.0, 70.0, 80.0, 20.0),
+                  child: Text(
+                    header,
+                    style: Styles.onBoardingHeaderText,
+                  ),
                 ),
-                onPressed: () {
-                  // Navigator.pushAndRemoveUntil(
-                  //   context,
-                  //   MaterialPageRoute<void>(
-                  //       builder: (BuildContext context) => const HomePage()),
-                  //   (route) => false,
-                  // );
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => BlocProvider(
-                              create: (state) => StoryCubit("onboarding"),
-                              child: const StoryPage(),
-                            )),
-                    (route) => false,
-                  );
-                },
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(33.0, 0.0, 40.0, 20.0),
+                  child: Text(
+                    text,
+                    style: Styles.onBoardingText,
+                  ),
+                ),
+              ],
+            ),
+            TextButton(
+              child: Text(
+                buttonText,
+                style: Styles.textButtonText,
               ),
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => BlocProvider(
+                        create: (state) => StoryCubit("onboarding"),
+                        child: const StoryPage(),
+                      )),
+                      (route) => false,
+                );
+              },
             ),
           ],
         )

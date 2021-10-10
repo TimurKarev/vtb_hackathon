@@ -23,7 +23,7 @@ class _StoryPageState extends State<StoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: const Color(0xFF316FCC),
       body: BlocBuilder<StoryCubit, StoryPageModel>(
         builder: (context, state) {
           return Stack(
@@ -33,6 +33,10 @@ class _StoryPageState extends State<StoryPage> {
                   Expanded(
                     child: Image.network(
                       state.image,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return const Center(child: CircularProgressIndicator(color: Colors.white));
+                      },
                       errorBuilder: (c, o, s) => Container(),
                       fit: BoxFit.fitHeight,
                     ),
@@ -49,6 +53,9 @@ class _StoryPageState extends State<StoryPage> {
   }
 
   Widget _bottomContent(StoryPageModel state, BuildContext context) {
+    if (state.text == "Загрузка...") {
+      return const Center(child: CircularProgressIndicator(color: Colors.white));
+    }
     if (state.type != null &&
         (state.type == "end" || state.type == "division")) {
       return Column(
@@ -106,14 +113,14 @@ class _StoryPageState extends State<StoryPage> {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(16),
+                      color: const Color(0xFF3A83F1),
                     ),
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     child: const Center(
-                      child: Text("продолжить",
-                          style: TextStyle(color: Colors.white)),
+                      child: Text("Продолжить",
+                          style: TextStyle(fontWeight: FontWeight.bold ,color: Colors.white)),
                     ),
                   ),
                 ),
@@ -131,15 +138,16 @@ class _StoryPageState extends State<StoryPage> {
                         (route) => false);
                   },
                   child: Container(
+
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(16),
+                      color: const Color(0xFF3A83F1),
                     ),
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     child: const Center(
-                      child: Text("пройти заново",
-                          style: TextStyle(color: Colors.white)),
+                      child: Text("Попробовать еще раз",
+                          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
                     ),
                   ),
                 ),
@@ -185,14 +193,15 @@ class _StoryPageState extends State<StoryPage> {
                 child: const Text(''),
               )
             : Container(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                margin: const EdgeInsets.only(top: 8, left: 8),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(16),
+                  color: const Color(0xFF316FCC),
                 ),
                 child: Text(
                   state.speakerName!,
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
                 ),
               ),
       ],
@@ -223,14 +232,14 @@ class _StoryPageState extends State<StoryPage> {
                       BlocProvider.of<StoryCubit>(context).loadNext();
                     },
                     child: Container(
-                      padding: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        color: Colors.blue,
+                        color: const Color(0xFF316FCC),
                       ),
                       child: const Text(
-                        'далее',
-                        style: TextStyle(color: Colors.white),
+                        'Далее',
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
                       ),
                     ),
                   ),
@@ -249,19 +258,17 @@ class _StoryPageState extends State<StoryPage> {
             .map(
               (e) => NoBlinkInkWell(
                 onTap: () {
-                  BlocProvider.of<StoryCubit>(context)
-                      .loadNamed(e.nextPageName);
+                  BlocProvider.of<StoryCubit>(context).loadNamed(e.nextPageName);
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(16),
+                    color: const Color(0xFF316FCC),
                   ),
-                  padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  margin: const EdgeInsets.symmetric(horizontal: 8),
                   child: Center(
-                    child: Text(e.displayName,
-                        style: const TextStyle(color: Colors.white)),
+                    child: Text(e.displayName, textAlign: TextAlign.center, style: const TextStyle(color: Colors.white)),
                   ),
                 ),
               ),
@@ -292,10 +299,10 @@ class _StoryPageState extends State<StoryPage> {
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        color: Colors.blue,
+                        color: const Color(0xFF316FCC),
                       ),
                       child: const Text(
-                        "показать предложение",
+                        "Показать предложение",
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
@@ -308,12 +315,12 @@ class _StoryPageState extends State<StoryPage> {
         return Column(
           children: [
             Container(
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(15),
                   bottomRight: Radius.circular(15),
                 ),
-                color: Colors.blue.shade800,
+                color: Color(0xFF316FCC),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -329,7 +336,7 @@ class _StoryPageState extends State<StoryPage> {
                           });
                         },
                         child: const Text(
-                          'закрыть',
+                          'Закрыть',
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
@@ -353,7 +360,7 @@ class _StoryPageState extends State<StoryPage> {
                       padding: const EdgeInsets.all(10),
                       child: const Text(
                         'Перейти',
-                        style: TextStyle(color: Colors.blue),
+                        style: TextStyle(color: Color(0xFF316FCC)),
                       ),
                     ),
                   ),
