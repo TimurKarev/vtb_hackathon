@@ -6,6 +6,7 @@
 
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vtb_hackathon/scor/data/json_wtire.dart';
 
 enum TypeClick{
   Link, //ссылки ВТБ
@@ -98,26 +99,31 @@ _analize(Result res) async {
         int get = prefs.getInt(value.toString())!;
          rating = _ret(value, get) ;
       }
+      writeCounter("Difficulties",rating);
       break;
     case Result.Interest:
        for (var value in TypeClick.values) {
         int get = prefs.getInt(value.toString())!;
         rating =  _ret(value, get) ;
       }
+      writeCounter("Interest",rating);
       break;
     case Result.Desire:
        for (var value in TypeClick.values) {
         int get = prefs.getInt(value.toString())!;
         rating = _ret(value, get) ;
       }
+      writeCounter("Desire",rating);
       break;
     case Result.StartEaseLevel:
     for (var value in TypeClick.values) {
         int get = prefs.getInt(value.toString())!;
         rating = _ret(value, get) ;
       }
+      writeCounter("StartEaseLevel",rating);
       break;
   }
+
   
 }
 
