@@ -34,72 +34,6 @@ class _StoryScreenState extends State<StoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: <Widget>[
-      CupertinoSlidingSegmentedControl(
-          padding: EdgeInsets.only(top: 5),
-          children: <int, Widget>{
-            0: Container(
-              height: 60,
-              width: MediaQuery.of(context).size.width / 2,
-              decoration: BoxDecoration(
-                color:
-                    _selectedValue == 0 ? Colors.blue : CupertinoColors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  bottomLeft: Radius.circular(10),
-                ),
-                border: Border.all(
-                  color: Colors.blue,
-                  width: 1.5,
-                ),
-              ),
-              padding: EdgeInsets.all(8),
-              margin: EdgeInsets.only(left: 9, top: 10),
-              child: Center(
-                  child: Text('Новичок',
-                      style: TextStyle(
-                        fontSize: 24,
-                        color: _selectedValue == 1
-                            ? Colors.blue
-                            : CupertinoColors.white,
-                      ))),
-            ),
-            1: Container(
-              height: 60,
-              width: MediaQuery.of(context).size.width / 2,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topRight: const Radius.circular(10),
-                  bottomRight: const Radius.circular(10),
-                ),
-                color:
-                    _selectedValue == 1 ? Colors.blue : CupertinoColors.white,
-                border: Border.all(
-                  color: Colors.blue,
-                  width: 1.5,
-                ),
-              ),
-              padding: EdgeInsets.all(8),
-              margin: EdgeInsets.only(right: 9, top: 10),
-              child: Center(
-                  child: Text('Годзила',
-                      style: TextStyle(
-                        fontSize: 24,
-                        color: _selectedValue == 0
-                            ? Colors.blue
-                            : CupertinoColors.white,
-                      ))),
-            ),
-          },
-          onValueChanged: (value) {
-            setState(() {
-              _selectedValue = value as int;
-              // if (value == 0) {
-              //   _bloc.emit(EventJunior as PageViewState);
-              // }else {
-              //   _bloc.emit(EventPro as PageViewState);
-              // }
-            });
-          }),
       Container(
         margin: EdgeInsets.only(top: 70),
         child: BlocListener<PageViewCubit, PageViewState>(
@@ -112,23 +46,75 @@ class _StoryScreenState extends State<StoryScreen> {
                 bloc: _bloc,
                 builder: (context, state) {
                   if (state is EventJunior) {
-                    return Container(
-                        child: Column(children: <Widget>[
-                      Expanded(
-                          child: ListView.builder(
-                              itemCount: 3,
-                              itemBuilder: (context, index) {
-                                return Container(color: Colors.blue);
-                              })),
-                    ]));
+                    print("June");
+                    return Column(
+                      children: [
+                        TextButton(
+                          child: Text("Новичек 1"),
+                          onPressed: () {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) => BlocProvider(
+                                    create: (state) => StoryCubit("novice1"),
+                                    child: const StoryPage(),
+                                  )),
+                                  (route) => false,
+                            );
+                          },
+                        ),
+                        TextButton(
+                          child: Text("Новичек 2"),
+                          onPressed: () {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) => BlocProvider(
+                                    create: (state) => StoryCubit("novice2"),
+                                    child: const StoryPage(),
+                                  )),
+                                  (route) => false,
+                            );
+                          },
+                        ),
+                      ],
+                    );
+                    // return Container(
+                    //     child: Column(children: <Widget>[
+                    //   Expanded(
+                    //       child: ListView.builder(
+                    //           itemCount: 3,
+                    //           itemBuilder: (context, index) {
+                    //             return Container(color: Colors.blue);
+                    //           })),
+                    // ]));
                   } else if (state is EventPro) {
-                    return Container(
-                        margin: EdgeInsets.symmetric(vertical: 8),
-                        child: ListView.builder(
-                            itemCount: 5,
-                            itemBuilder: (context, index) {
-                              return Container(color: Colors.blue);
-                            }));
+                    print("Pro");
+                    return Column(
+                      children: [
+                        TextButton(
+                          child: Text("Продвинутый "),
+                          onPressed: () {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) => BlocProvider(
+                                    create: (state) => StoryCubit("advanced1"),
+                                    child: const StoryPage(),
+                                  )),
+                                  (route) => false,
+                            );
+                          },
+                        ),
+                      ],
+                    );
+                    // return Container(
+                    //     margin: EdgeInsets.symmetric(vertical: 8),
+                    //     child: ListView.builder(
+                    //         itemCount: 5,
+                    //         itemBuilder: (context, index) {
+                    //           return Container(color: Colors.blue);
+                    //         }));
                   } else if (state is EventNoStates) {
                     return Container(
                       child: Center(
@@ -136,7 +122,6 @@ class _StoryScreenState extends State<StoryScreen> {
                       ),
                     );
                   }
-
                   return Center(
                     child: //CupertinoActivityIndicator(),
                         Column(
