@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vtb_hackathon/pages/home/home_page.dart';
 import 'package:vtb_hackathon/pages/story/models/story_page_model.dart';
 import 'package:vtb_hackathon/pages/story/story_cubit.dart';
 import 'package:vtb_hackathon/shared/no_blink_inkwell.dart';
+import 'package:vtb_hackathon/shared/open_link.dart';
 import 'package:vtb_hackathon/shared/top_offset_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StoryPage extends StatefulWidget {
   const StoryPage({Key? key}) : super(key: key);
@@ -14,6 +17,8 @@ class StoryPage extends StatefulWidget {
 }
 
 class _StoryPageState extends State<StoryPage> {
+  bool showSuggestion = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +39,7 @@ class _StoryPageState extends State<StoryPage> {
                 ],
               ),
               _bottomContent(state, context),
+              _topContent(state, context),
             ],
           );
         },
@@ -74,11 +80,27 @@ class _StoryPageState extends State<StoryPage> {
                   ),
                 ))),
                 NoBlinkInkWell(
-                  onTap: () {
+                  onTap: () async {
                     if (state.type == "division") {
+                      if (state.result == "advanced") {
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        prefs.setBool("isNovice", false);
+                      } else if (state.result == "novice") {
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        prefs.setBool("isNovice", true);
+                      }
                       //если это сегментирующий экран, записывает сегментацию
                     }
                     //переходит на главный экран, до этого возможно какие-то данные отправляет
+
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute<void>(
+                          builder: (BuildContext context) => const HomePage()),
+                      (route) => false,
+                    );
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -244,5 +266,100 @@ class _StoryPageState extends State<StoryPage> {
             .toList(),
       ),
     );
+  }
+
+  Widget _topContent(StoryPageModel state, BuildContext context) {
+    if (state.type == "end") {
+      if (state.suggestion != null) {
+        if (showSuggestion == false) {
+          return Column(
+            children: [
+              const TopOffsetWidget(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  NoBlinkInkWell(
+                    onTap: () {
+                      setState(() {
+                        showSuggestion = true;
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.blue,
+                      ),
+                      child: const Text(
+                        "показать предложение",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          );
+        }
+        return Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(15),
+                  bottomRight: Radius.circular(15),
+                ),
+                color: Colors.blue.shade800,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const TopOffsetWidget(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      NoBlinkInkWell(
+                        onTap: () {
+                          setState(() {
+                            showSuggestion = false;
+                          });
+                        },
+                        child: const Text(
+                          'закрыть',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(height: 10),
+                  Text(
+                    state.suggestion!,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  Container(height: 10),
+                  NoBlinkInkWell(
+                    onTap: () {
+                      openLink(context, state.suggestionLink!);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.white,
+                      ),
+                      padding: const EdgeInsets.all(10),
+                      child: const Text(
+                        'Перейти',
+                        style: TextStyle(color: Colors.blue),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      }
+    }
+    return Container();
   }
 }

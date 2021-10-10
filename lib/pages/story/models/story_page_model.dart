@@ -10,6 +10,9 @@ class StoryPageModel {
   List<OptionModel>? options;
   String? type;
   String? speakerName;
+  String? suggestion;
+  String? suggestionLink;
+  String? result;
   String image;
 
   StoryPageModel({
@@ -18,6 +21,9 @@ class StoryPageModel {
     this.options,
     this.type,
     this.speakerName,
+    this.suggestion,
+    this.suggestionLink,
+    this.result,
     required this.image,
   });
 
@@ -36,6 +42,9 @@ class StoryPageModel {
               map['options']!.map((x) => OptionModel.fromMap(x))),
       type: map['type'],
       speakerName: map['speakerName'],
+      suggestion: map['suggestion'],
+      suggestionLink: map['suggestionLink'],
+      result: map['result'],
       image: map['image'],
     );
   }
