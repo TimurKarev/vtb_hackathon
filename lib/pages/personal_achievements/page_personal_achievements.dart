@@ -30,6 +30,7 @@ class PpersonalAachievementsState extends State<Personal_Achievements> {
                       child: GestureDetector(
                           onTap: () {
                             Navigator.of(context).pop();
+                            Navigator.of(context).pop();
                           },
                           child: Icon(Icons.arrow_back_ios)),
                     ),

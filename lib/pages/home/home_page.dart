@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:vtb_hackathon/pages/home/screens/story/story_screen.dart';
+import 'package:vtb_hackathon/pages/personal_achievements/page_personal_achievements.dart';
 import 'package:vtb_hackathon/pages/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vtb_hackathon/pages/vtb_screen/vtb_screen.dart';
@@ -114,7 +115,15 @@ class AppWidget extends StatelessWidget {
         ),
         Flexible(
           flex: 1,
-          child: Column(
+          child: GestureDetector(
+            onTap: (){
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) =>  Personal_Achievements()),
+                      (Route<dynamic> route) => false);
+
+            },
+            child:Column(
             children: const [
               Icon(
                 Icons.account_circle,
@@ -126,7 +135,7 @@ class AppWidget extends StatelessWidget {
                 style: Styles.smallestText,
               ),
             ],
-          ),
+          ),)
         ),
       ],
     );

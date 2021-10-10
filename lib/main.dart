@@ -11,18 +11,23 @@ import 'package:vtb_hackathon/scor/data/json.dart';
 
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
+import 'package:vtb_hackathon/scor/scor_click.dart';
+import 'package:vtb_hackathon/scor/scor_time.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const ProviderScope(child: MyApp()));
 }
-
+TimerScore? time_score;
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    time_score = TimerScore();
+    time_score!.timerScore(TypeClick.EventTimerStart);
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,

@@ -12,6 +12,9 @@ import 'package:vtb_hackathon/pages/story/story_page.dart';
 import 'package:vtb_hackathon/pages/styles.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vtb_hackathon/scor/scor_click.dart';
+
+import '../../../../main.dart';
 
 class StoryScreen extends StatefulWidget {
   const StoryScreen({Key? key}) : super(key: key);
@@ -33,6 +36,13 @@ class _StoryScreenState extends State<StoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //TODO: analitics fin
+    time_score!.timerScore(TypeClick.EventTimerEnd);
+    analizeScore(Result.Desire);
+    analizeScore(Result.Difficulties);
+    analizeScore(Result.Interest);
+    analizeScore(Result.StartEaseLevel);
+
     return Stack(children: <Widget>[
       Container(
         margin: EdgeInsets.only(top: 70),

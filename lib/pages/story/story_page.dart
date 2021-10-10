@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vtb_hackathon/pages/home/home_page.dart';
 import 'package:vtb_hackathon/pages/story/models/story_page_model.dart';
 import 'package:vtb_hackathon/pages/story/story_cubit.dart';
+import 'package:vtb_hackathon/scor/scor_click.dart';
 import 'package:vtb_hackathon/shared/no_blink_inkwell.dart';
 import 'package:vtb_hackathon/shared/open_link.dart';
 import 'package:vtb_hackathon/shared/top_offset_widget.dart';
@@ -81,6 +82,7 @@ class _StoryPageState extends State<StoryPage> {
                 ))),
                 NoBlinkInkWell(
                   onTap: () async {
+                    analitEventClick(TypeClick.PageCount);
                     if (state.type == "division") {
                       if (state.result == "advanced") {
                         SharedPreferences prefs =
@@ -217,6 +219,7 @@ class _StoryPageState extends State<StoryPage> {
                 children: [
                   NoBlinkInkWell(
                     onTap: () {
+                      analitEventClick(TypeClick.PageCount);
                       BlocProvider.of<StoryCubit>(context).loadNext();
                     },
                     child: Container(
@@ -280,6 +283,7 @@ class _StoryPageState extends State<StoryPage> {
                 children: [
                   NoBlinkInkWell(
                     onTap: () {
+                      analitEventClick(TypeClick.Info);
                       setState(() {
                         showSuggestion = true;
                       });

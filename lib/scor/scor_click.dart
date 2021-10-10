@@ -89,36 +89,76 @@ void _scropeType(TypeClick type) async {
   await prefs.setInt(type.toString(), counter);
 }
 
-_analize(Result res) async {
+analizeScore(Result res) async {
+  print("Result pre_start");
   SharedPreferences prefs = await SharedPreferences.getInstance();
   // List<Map<String, int>> map = [];
   int rating = 0;
   switch(res){
     case Result.Difficulties:
+      print("Result start");
+      if(TypeClick.values ==null){
+        print("TypeClick.value == null");
+      }
       for (var value in TypeClick.values) {
-        int get = prefs.getInt(value.toString())!;
-         rating = _ret(value, get) ;
+        if(value == null){
+          print("value == null");
+          break;
+        }
+        print("EERR "+value.toString());
+        int get = prefs.getInt(value.toString()) ?? 0;
+         rating = _ret((value as TypeClick ), get) ;
       }
       writeCounter("Difficulties",rating);
       break;
     case Result.Interest:
+      print("Result start");
+      if(TypeClick.values ==null){
+        print("TypeClick.value == null");
+      }
        for (var value in TypeClick.values) {
-        int get = prefs.getInt(value.toString())!;
-        rating =  _ret(value, get) ;
+         if(value == null){
+           print("value == null");
+           break;
+         }
+         print("EERR "+value.toString());
+
+         int get = prefs.getInt(value.toString()) ?? 0;
+        rating =  _ret((value as TypeClick ), get) ;
       }
       writeCounter("Interest",rating);
       break;
     case Result.Desire:
+      print("Result start");
+      if(TypeClick.values ==null){
+        print("TypeClick.value == null");
+      }
        for (var value in TypeClick.values) {
-        int get = prefs.getInt(value.toString())!;
-        rating = _ret(value, get) ;
+         if(value == null){
+           print("value == null");
+           break;
+         }
+         print("EERR "+value.toString());
+
+         int get = prefs.getInt(value.toString())?? 0;
+        rating = _ret((value as TypeClick ), get) ;
       }
       writeCounter("Desire",rating);
       break;
     case Result.StartEaseLevel:
+      print("Result start");
+      if(TypeClick.values ==null){
+        print("TypeClick.value == null");
+      }
     for (var value in TypeClick.values) {
-        int get = prefs.getInt(value.toString())!;
-        rating = _ret(value, get) ;
+      if(value == null){
+        print("value == null");
+        break;
+      }
+      print("EERR "+value.toString());
+
+      int get = prefs.getInt((value as TypeClick ).toString())?? 0;
+        rating = _ret((value as TypeClick ), get) ;
       }
       writeCounter("StartEaseLevel",rating);
       break;
@@ -165,10 +205,10 @@ int  _ret(TypeClick even , int count)  {
       val = count ;
       break;
     case TypeClick.EventTimerStart:
-      val = (count / 100) as int ;
+      val = (count / 100) .toInt() ;
       break;
     case TypeClick.EventTimerEnd:
-      val = (count / 100)* -1 as int  ;
+      val = ((count / 100)* -1  ).toInt()  ;
       break;
   }
   // Map<String, int> map = {ss: val};

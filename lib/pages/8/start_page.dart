@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vtb_hackathon/pages/home/home_page.dart';
+import 'package:vtb_hackathon/scor/scor_click.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({Key? key}) : super(key: key);
@@ -257,6 +258,7 @@ class _StartPageState extends State<StartPage> {
         onBuildItemButton(
             text: "Да... Пока никак особо, живу от зарплаты до зарплаты...",
             flag: () {
+              analitEventClick(TypeClick.Question);
               setState(() {
                 isStartFirstWay = !isStartFirstWay;
                 stageBaseStory = 0;
@@ -267,6 +269,7 @@ class _StartPageState extends State<StartPage> {
             text:
                 "Ты знаешь, а все идет довольно неплохо, даже откладывать получается.",
             flag: () {
+              analitEventClick(TypeClick.Question);
               setState(() {
                 isStartSecondWay = !isStartSecondWay;
                 stageBaseStory = 0;
