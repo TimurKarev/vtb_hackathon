@@ -111,14 +111,14 @@ class _StoryPageState extends State<StoryPage> {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(16),
+                      color: const Color(0xFF3A83F1),
                     ),
                     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     child: const Center(
                       child: Text("Продолжить",
-                          style: TextStyle(color: Colors.white)),
+                          style: TextStyle(fontWeight: FontWeight.bold ,color: Colors.white)),
                     ),
                   ),
                 ),
@@ -136,15 +136,16 @@ class _StoryPageState extends State<StoryPage> {
                         (route) => false);
                   },
                   child: Container(
+
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: const Color(0xFF316FCC),
+                      borderRadius: BorderRadius.circular(16),
+                      color: const Color(0xFF3A83F1),
                     ),
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     child: const Center(
-                      child: Text("пройти заново",
-                          style: TextStyle(color: Colors.white)),
+                      child: Text("Попробовать еще раз",
+                          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
                     ),
                   ),
                 ),
