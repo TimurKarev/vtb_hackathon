@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import 'package:vtb_hackathon/pages/home/screens/story/story_screen.dart';
 import 'package:vtb_hackathon/pages/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:vtb_hackathon/pages/vtb_screen/vtb_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,11 +18,9 @@ class _HomePageState extends State<HomePage> {
     StoryScreen(),
     Text(
       'Список доступных настолок',
-    ),
-    Text(
-      'Ссылки на продукты ВТБ',
       style: Styles.baseText,
     ),
+    VTBScreen(),
   ];
 
   static const List<String> _appTitle = <String>[
@@ -39,32 +38,18 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: Styles.backgroundColor,
-        foregroundColor: Styles.foregroundColor,
-        title: Center(
-          child: Text(_appTitle[_selectedIndex], style: Styles.appBarText),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(70.0),
+        child: AppBar(
+          elevation: 0.0,
+          backgroundColor: Styles.mainColor,
+          foregroundColor: Styles.foregroundColor,
+          //_
+          title: AppWidget(text: _appTitle[_selectedIndex]),
         ),
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.account_balance_outlined,
-            color: Styles.primaryDarkColor,
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.account_circle,
-              color: Styles.primaryDarkColor,
-            ),
-          ),
-        ],
       ),
       body: Container(
-        color: Colors.white,
+        color: Styles.mainColor,
         child: Center(
           child: _widgetOptions.elementAt(_selectedIndex),
         ),
@@ -90,6 +75,60 @@ class _HomePageState extends State<HomePage> {
         selectedItemColor: Styles.primaryDarkColor,
         onTap: _onItemTapped,
       ),
+    );
+  }
+}
+
+class AppWidget extends StatelessWidget {
+  final String text;
+
+  const AppWidget({Key? key, required this.text}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Flexible(
+          flex: 1,
+          child: Column(
+            children: const [
+              Icon(
+                Icons.account_balance_outlined,
+                size: 27.0,
+                color: Styles.primaryDarkColor,
+              ),
+              Text(
+                "ВТБ",
+                style: Styles.smallestText,
+              ),
+            ],
+          ),
+        ),
+        Flexible(
+          flex: 1,
+          child: Text(
+            text,
+            style: Styles.appBarText,
+          ),
+        ),
+        Flexible(
+          flex: 1,
+          child: Column(
+            children: const [
+              Icon(
+                Icons.account_circle,
+                size: 27.0,
+                color: Styles.primaryDarkColor,
+              ),
+              Text(
+                "Профиль",
+                style: Styles.smallestText,
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
