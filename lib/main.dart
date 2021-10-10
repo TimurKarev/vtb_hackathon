@@ -17,7 +17,11 @@ import 'package:vtb_hackathon/scor/scor_time.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const ProviderScope(child: MyApp()));
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(const ProviderScope(child: MyApp()));
+  });
 }
 TimerScore? time_score;
 class MyApp extends StatelessWidget {
