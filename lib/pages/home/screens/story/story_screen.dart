@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:vtb_hackathon/pages/common/vtb_card.dart';
 
 // import 'package:vtb_hackathon/cubit_scoring/cubit_bloc.dart';
 import 'package:vtb_hackathon/pages/home/screens/story/bloc_pageview.dart';
@@ -11,7 +12,6 @@ import 'package:vtb_hackathon/pages/story/story_page.dart';
 import 'package:vtb_hackathon/pages/styles.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 class StoryScreen extends StatefulWidget {
   const StoryScreen({Key? key}) : super(key: key);
@@ -46,37 +46,45 @@ class _StoryScreenState extends State<StoryScreen> {
                 bloc: _bloc,
                 builder: (context, state) {
                   if (state is EventJunior) {
-                    print("June");
                     return Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         TextButton(
-                          child: Text("Новичек 1"),
+                          child: const VTBCard(
+                            file: "number_1",
+                            header: "Первые шаги",
+                            text:
+                                "история в которой главный герой начинает задумываться",
+                          ),
                           onPressed: () {
                             Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                  builder: (BuildContext context) => BlocProvider(
-                                    create: (state) => StoryCubit("novice1"),
-                                    child: const StoryPage(),
-                                  )),
-                                  (route) => false,
+                                builder: (BuildContext context) => BlocProvider(
+                                  create: (state) => StoryCubit("novice1"),
+                                  child: const StoryPage(),
+                                ),
+                              ),
+                              (route) => false,
                             );
                           },
                         ),
-                        TextButton(
-                          child: Text("Новичек 2"),
-                          onPressed: () {
-                            Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) => BlocProvider(
-                                    create: (state) => StoryCubit("novice2"),
-                                    child: const StoryPage(),
-                                  )),
-                                  (route) => false,
-                            );
-                          },
-                        ),
+                        // TextButton(
+                        //   child: Text("Новичек 2"),
+                        //   onPressed: () {
+                        //     Navigator.pushAndRemoveUntil(
+                        //       context,
+                        //       MaterialPageRoute(
+                        //           builder: (BuildContext context) =>
+                        //               BlocProvider(
+                        //                 create: (state) =>
+                        //                     StoryCubit("novice2"),
+                        //                 child: const StoryPage(),
+                        //               )),
+                        //       (route) => false,
+                        //     );
+                        //   },
+                        // ),
                       ],
                     );
                     // return Container(
@@ -89,19 +97,46 @@ class _StoryScreenState extends State<StoryScreen> {
                     //           })),
                     // ]));
                   } else if (state is EventPro) {
-                    print("Pro");
                     return Column(
                       children: [
                         TextButton(
-                          child: Text("Продвинутый "),
+                          child: const VTBCard(
+                            file: "number_1",
+                            header: "Сложный выбор",
+                            text:
+                            "история в которой главный герой встречает своего самого страшного врага",
+                          ),
                           onPressed: () {
                             Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                  builder: (BuildContext context) => BlocProvider(
-                                    create: (state) => StoryCubit("advanced1"),
-                                    child: const StoryPage(),
-                                  )),
+                                  builder: (BuildContext context) =>
+                                      BlocProvider(
+                                        create: (state) =>
+                                            StoryCubit("advanced1"),
+                                        child: const StoryPage(),
+                                      )),
+                              (route) => false,
+                            );
+                          },
+                        ),
+                        TextButton(
+                          child: const VTBCard(
+                            file: "number_2",
+                            header: "Противостояние",
+                            text:
+                            "история в которой главный герой начинает сопротивляться",
+                          ),
+                          onPressed: () {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      BlocProvider(
+                                        create: (state) =>
+                                            StoryCubit("advanced1"),
+                                        child: const StoryPage(),
+                                      )),
                                   (route) => false,
                             );
                           },
@@ -132,8 +167,10 @@ class _StoryScreenState extends State<StoryScreen> {
                             Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                  builder: (BuildContext context) => BlocProvider(
-                                        create: (state) => StoryCubit("novice1"),
+                                  builder: (BuildContext context) =>
+                                      BlocProvider(
+                                        create: (state) =>
+                                            StoryCubit("novice1"),
                                         child: const StoryPage(),
                                       )),
                               (route) => false,
@@ -146,11 +183,13 @@ class _StoryScreenState extends State<StoryScreen> {
                             Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                  builder: (BuildContext context) => BlocProvider(
-                                    create: (state) => StoryCubit("novice2"),
-                                    child: const StoryPage(),
-                                  )),
-                                  (route) => false,
+                                  builder: (BuildContext context) =>
+                                      BlocProvider(
+                                        create: (state) =>
+                                            StoryCubit("novice2"),
+                                        child: const StoryPage(),
+                                      )),
+                              (route) => false,
                             );
                           },
                         ),
@@ -160,11 +199,13 @@ class _StoryScreenState extends State<StoryScreen> {
                             Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                  builder: (BuildContext context) => BlocProvider(
-                                    create: (state) => StoryCubit("advanced1"),
-                                    child: const StoryPage(),
-                                  )),
-                                  (route) => false,
+                                  builder: (BuildContext context) =>
+                                      BlocProvider(
+                                        create: (state) =>
+                                            StoryCubit("advanced1"),
+                                        child: const StoryPage(),
+                                      )),
+                              (route) => false,
                             );
                           },
                         ),

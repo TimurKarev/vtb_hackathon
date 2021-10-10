@@ -80,6 +80,8 @@ flutter:
     - assets/png/vtb_icon.png
     - assets/png/Union.png
     - assets/png/telegram_icon.png
+    - assets/png/number_1.png
+    - assets/png/number_2.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

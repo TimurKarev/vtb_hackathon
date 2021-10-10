@@ -106,7 +106,7 @@ class AppWidget extends StatelessWidget {
           ),
         ),
         Flexible(
-          flex: 1,
+          flex: 5,
           child: Text(
             text,
             style: Styles.appBarText,
