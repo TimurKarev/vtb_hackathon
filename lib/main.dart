@@ -6,7 +6,11 @@ import 'package:flutter/services.dart';
 import 'package:vtb_hackathon/pages/loading/loading_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:vtb_hackathon/scor/data/json.dart';
 
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -55,13 +59,23 @@ Future loadVault() async {
   print(add); //shows the full json string that I want. 
 
 }
+// Future<String> get _localPath async {
+ 
+//   final directory = await getApplicationDocumentsDirectory();
+
+//   return directory.path;
+// }
 
 Future<void> writeCounter(int counter) async {
-  // final directory = await getApplicationDocumentsDirectory();
-  final file = File('assets/json/scoring_result.json');
-  // final file = await _localFile;
-  file.writeAsStringSync(json.encode("fghffh"));
+  Directory tempDir = await getApplicationDocumentsDirectory();
+String tempPath = tempDir.path;
+print("PATH"+tempPath.toString());
+
+  final file = File('/data/user/0/com.example.vtb_hackathon/app_flutter/');
+  JsonHelper help = JsonHelper(file);
+  await help.initialize();
+  await help.update("ret","value");
+
   print("WRITE JSON");
-  // Write the file
-  // return file.writeAsString('$counter');
+
 }
