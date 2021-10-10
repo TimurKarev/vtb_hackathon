@@ -3,10 +3,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:vtb_hackathon/pages/8/start_page.dart';
+import 'package:vtb_hackathon/pages/home/home_page.dart';
 import 'package:vtb_hackathon/pages/loading/loading_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:vtb_hackathon/pages/personal_achievements/page_personal_achievements.dart';
 import 'package:vtb_hackathon/scor/data/json.dart';
 
 import 'dart:io';
@@ -43,6 +46,12 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
+      // initialRoute: '/',
+      // routes: {
+      //   '/': (context) => StartPage(),
+      //   '/home': (context) => HomePage(),
+      //   '/achiv': (context) => Personal_Achievements(),
+      // },
       home: const LoadingPage(),
     );
   }

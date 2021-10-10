@@ -29,8 +29,8 @@ class PpersonalAachievementsState extends State<Personal_Achievements> {
                       alignment: Alignment.centerLeft,
                       child: GestureDetector(
                           onTap: () {
-                            Navigator.of(context).pop();
-                            Navigator.of(context).pop();
+                            Navigator.pop(context);
+                            // Navigator.of(context).pop();
                           },
                           child: Icon(Icons.arrow_back_ios)),
                     ),
@@ -85,7 +85,7 @@ class PpersonalAachievementsState extends State<Personal_Achievements> {
                             fit: BoxFit.fill,
                             child: ClipOval(                             
                               child: Image.network(
-                                  'https://avatars.mds.yandex.net/get-ott/374297/2a000001616b87458162c9216ccd5144e94d/678x380'),
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAavrFS-6QFNV0SuXicYkZSwEeEZ4BkxEi-JsRv3eUJ3dEfDybutG6w4vbST04Yu9EGM8&usqp=CAU'),
                             ),
                           ),
                         )
@@ -233,13 +233,13 @@ class PpersonalAachievementsState extends State<Personal_Achievements> {
     return GestureDetector(
       onTap: () {},
       child: Container(
-          height: 100,
+          height: 90,
           width: 250,
           margin: EdgeInsets.all(20),
           decoration: BoxDecoration(
             //TODO:
             color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(20),
             boxShadow: [
               // BoxShadow(color: Colors.grey, spreadRadius: 3),
               BoxShadow(
@@ -255,17 +255,24 @@ class PpersonalAachievementsState extends State<Personal_Achievements> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                alignment: Alignment.topLeft,
+                width: 120,
+                height: 180,
+                child:
+              // Container(
+              //   alignment: Alignment.center,
                 // padding: EdgeInsets.all(15),
-                child: Container(
-                  width: 70,
-                  height: 100,
-                  child: FittedBox(
+                // child:
+          // Expanded(
+          //         width: 100,
+          //         height: 140,
+          //         child:
+              FittedBox(
                       fit: BoxFit.fill,
                       child: ClipRRect(
-                        borderRadius: BorderRadius.only(bottomLeft:Radius.circular(100), topLeft: Radius.circular(100)),
+                        borderRadius: BorderRadius.only(bottomLeft:Radius.circular(30), topLeft: Radius.circular(30)),
                         child: Image.network(
-                            'https://wf.cdn.gmru.net/wiki/images/a/a1/Challenge_badge_firstPlacePTBPyramid3.png'),
+                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjKUOTmLXzhpx-Tk060TJWL9LPqvM935dxjA&usqp=CAU'
+                        ),
                       )),
                   // decoration: BoxDecoration(
                   //   //TODO:
@@ -281,8 +288,10 @@ class PpersonalAachievementsState extends State<Personal_Achievements> {
                   //     ),
                   //   ],
                   // ),
-                ),
-              ),
+                // ),
+              // )
+              )
+              ,
               SizedBox(
                 width: 25,
               ),

@@ -117,10 +117,10 @@ class AppWidget extends StatelessWidget {
           flex: 1,
           child: GestureDetector(
             onTap: (){
-              Navigator.pushAndRemoveUntil(
+              Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) =>  Personal_Achievements()),
-                      (Route<dynamic> route) => false);
+                  MaterialPageRoute(builder: (context) =>  Personal_Achievements()));
+                      // (Route<dynamic> route) => true);
 
             },
             child:Column(
