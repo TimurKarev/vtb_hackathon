@@ -75,6 +75,7 @@ flutter:
     - assets/png/on_boarding_1.png
     - assets/png/on_boarding_2.png
     - assets/png/on_boarding_3.png
+    - assets/json/scoring_result.json
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

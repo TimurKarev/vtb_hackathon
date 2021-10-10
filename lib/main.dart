@@ -1,4 +1,8 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:vtb_hackathon/pages/loading/loading_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -15,6 +19,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    writeCounter(5);
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
@@ -33,4 +38,30 @@ class MyApp extends StatelessWidget {
       home: const LoadingPage(),
     );
   }
+}
+
+Future<String> _loadAVaultAsset() async {
+  return await rootBundle.loadString('assets/json/scoring_result.json');
+}
+
+Future loadVault() async {
+  String jsonString = await _loadAVaultAsset();
+  final jsonResponse = json.decode(jsonString);
+  var add = jsonResponse.toString();
+
+  var content = "EsdfsdfsE";
+  add = add.replaceFirst(new RegExp(r'}]'), "},"+content.toString()+"]");
+
+  print(add); //shows the full json string that I want. 
+
+}
+
+Future<void> writeCounter(int counter) async {
+  // final directory = await getApplicationDocumentsDirectory();
+  final file = File('assets/json/scoring_result.json');
+  // final file = await _localFile;
+  file.writeAsStringSync(json.encode("fghffh"));
+  print("WRITE JSON");
+  // Write the file
+  // return file.writeAsString('$counter');
 }
